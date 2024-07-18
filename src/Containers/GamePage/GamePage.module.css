@@ -10,7 +10,7 @@
   align-items: center;
   margin-top: 20px;
   height: 100vh; /* Ensure full viewport height */
-  background-color: #2e8df9;
+  background-color: #ecf0f3;
 }
 
 .tribute {
@@ -25,17 +25,18 @@
 .title {
   font-size: 2.5rem; /* Adjust font size as needed */
   margin-bottom: 10px; /* Example spacing */
-  background-color: #2e8df9;
+  background-color: #434445;
   padding: 10px 20px; /* Add padding to match the tribute container */
   border-radius: 5px; /* Rounded corners */
-  color: #d00f0f; /* Text color */
+  color: #020202; /* Text color */
   display: inline-block; /* Ensure inline display */
+  font-family: "GT Ultrabold";
 }
 
 .subtitle {
   font-size: 1.8rem; /* Adjust font size as needed */
-  color: #2bb698; /* Text color */
-  background-color: #f53333;
+  font-family: "GT Ultrabold";
+  color: #b65e2b; /* Text color */
 }
 
 .videoComp {

@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./NavBar.module.css";
 import { ReactComponent as Logo } from "../../Resources/image/logo.svg";
 import { ReactComponent as Browse } from "../../Resources/image/browse.svg";
 import { ReactComponent as Cart } from "../../Resources/image/cart.svg";
-import { ReactComponent as GitHub } from "../../Resources/image/github.svg";
 import { ReactComponent as Search } from "../../Resources/image/search.svg";
 import { motion } from "framer-motion";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 const NavBar = (props) => {
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
   const {
     handleHover,
     hoverState,
@@ -16,14 +18,11 @@ const NavBar = (props) => {
     handleBrowse,
     browsing,
     landingPage,
-    cart,
     cartAmount,
     search,
-    searching,
     handleSearch,
     handleSearchSubmit,
     handleOpenCart,
-    handleCloseCart,
   } = props;
 
   const variants = {
@@ -37,6 +36,14 @@ const NavBar = (props) => {
   };
 
   const location = useLocation();
+
+  const handleBrowseClick = () => {
+    if (!isAuthenticated) {
+      loginWithRedirect();
+    } else {
+      handleBrowse();
+    }
+  };
 
   return (
     <>
@@ -56,7 +63,6 @@ const NavBar = (props) => {
             onClick={handleHome}
           >
             <Logo className={styles.svg} style={{ fill: "#fff" }} />
-            <h3>Game Store</h3>
           </div>
 
           <div
@@ -65,62 +71,53 @@ const NavBar = (props) => {
             onMouseEnter={handleHover}
             onMouseLeave={handleHover}
           >
-            {browsing ? (
-              <>
-                <motion.div
-                  animate="visible"
-                  initial={
-                    location.pathname === "/react-ecommerce-store/browse"
-                      ? "hidden"
-                      : "visible"
-                  }
-                  variants={searchVariants}
-                  transition={{
-                    opacity: { type: "spring" },
-                    duration: 0.01,
-                    delay: 0.25,
-                  }}
-                  className={styles.searchdiv}
-                >
-                  <form onSubmit={handleSearchSubmit}>
-                    <input
-                      placeholder="Search games..."
-                      value={search}
-                      onChange={handleSearch}
-                    ></input>
-                    <input type="submit" hidden className={styles.submit} />
-                    <button type="submit">
-                      <Search
-                        className={styles.svg}
-                        style={{
-                          fill: hoverState[7].hovered ? "#fff" : "#cccccc",
-                        }}
-                        onMouseEnter={handleHover}
-                        onMouseLeave={handleHover}
-                        id="7"
-                        aria-label="Search"
-                      />
-                    </button>
-                  </form>
-                </motion.div>
-              </>
+            {isAuthenticated && browsing ? (
+              <motion.div
+                animate="visible"
+                initial={
+                  location.pathname === "/react-ecommerce-store/browse"
+                    ? "hidden"
+                    : "visible"
+                }
+                variants={searchVariants}
+                transition={{
+                  opacity: { type: "spring" },
+                  duration: 0.01,
+                  delay: 0.25,
+                }}
+                className={styles.searchdiv}
+              >
+                <form onSubmit={handleSearchSubmit}>
+                  <input
+                    placeholder="Search games..."
+                    value={search}
+                    onChange={handleSearch}
+                  />
+                  <input type="submit" hidden className={styles.submit} />
+                  <button type="submit">
+                    <Search
+                      className={styles.svg}
+                      style={{
+                        fill: hoverState[7].hovered ? "#fff" : "#cccccc",
+                      }}
+                      onMouseEnter={handleHover}
+                      onMouseLeave={handleHover}
+                      id="7"
+                      aria-label="Search"
+                    />
+                  </button>
+                </form>
+              </motion.div>
             ) : (
-              <div className={styles.browsediv}>
+              <div className={styles.browsediv} onClick={handleBrowseClick}>
                 <Browse className={styles.svg} style={{ fill: "#fff" }} />
-                <h3 onClick={handleBrowse}>Browse Store</h3>
+                <h3>Browse Store</h3>
               </div>
             )}
           </div>
         </div>
 
         <div className={styles.navbar_right}>
-          <div
-            className={styles.githubdiv}
-            id="2"
-            onMouseEnter={handleHover}
-            onMouseLeave={handleHover}
-          ></div>
-
           <div
             className={styles.cartdiv}
             id="3"
@@ -138,6 +135,24 @@ const NavBar = (props) => {
               }}
             />
             <h3 onClick={handleOpenCart}>Cart: {cartAmount}</h3>
+          </div>
+
+          <div>
+            {isAuthenticated ? (
+              <button
+                className={styles.button}
+                onClick={() => logout({ returnTo: window.location.origin })}
+              >
+                Log Out
+              </button>
+            ) : (
+              <button
+                className={styles.button}
+                onClick={() => loginWithRedirect()}
+              >
+                Log In
+              </button>
+            )}
           </div>
         </div>
       </motion.div>

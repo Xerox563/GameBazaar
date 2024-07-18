@@ -3,7 +3,6 @@ import styles from "./Home.module.css";
 import NavBar from "../../Components/NavBar/NavBar";
 import { ReactComponent as GitHubLogo } from "../../Resources/image/githublogo.svg";
 import { ReactComponent as Enter } from "../../Resources/image/enter.svg";
-import { ReactComponent as Dice } from "../../Resources/image/dice.svg";
 import { ReactComponent as LinkedIn } from "../../Resources/image/linkedin.svg";
 import { ReactComponent as Game } from "../../Resources/image/game.svg";
 import { ReactComponent as NotFound } from "../../Resources/image/notfound.svg";
@@ -17,8 +16,11 @@ import Cart from "../../Components/Cart/Cart";
 import AnimatedScroll from "../AnimatedPage/AnimatedScroll";
 import games from "../../utils/games";
 import Typewriter from "../../Components/Typewriter/Typewriter";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = (props) => {
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+
   const {
     shownGames,
     cartAmount,
@@ -39,6 +41,7 @@ const Home = (props) => {
   const [landingPage, setLandingPage] = useState(true);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleHover = (e) => {
     let newHoverState = hoverState[e.target.id];
@@ -48,11 +51,15 @@ const Home = (props) => {
   };
 
   const handleBrowse = () => {
-    setOverlap(true);
-    setTimeout(() => {
-      setBrowsing(true);
-      navigate("/react-ecommerce-store/browse");
-    }, 1500);
+    if (!isAuthenticated) {
+      loginWithRedirect();
+    } else {
+      setOverlap(true);
+      setTimeout(() => {
+        setBrowsing(true);
+        navigate("/react-ecommerce-store/browse");
+      }, 1500);
+    }
   };
 
   const handleHome = () => {
@@ -60,13 +67,14 @@ const Home = (props) => {
     navigate("/");
   };
 
+  /* for(int i=0;i<n;i++ ) {
+  if(arr[i] % 3 == 0 {
+  for(itn j=0;j<k;j++) {
+   cout<<}})} */
+
   const handleNavGamePage = () => {
     setHoverState([...hoverState, (hoverState[21].hovered = false)]);
     navigate("/react-ecommerce-store/games/riseofthetombraider");
-  };
-
-  const handleNavNotFoundPage = () => {
-    navigate("/react-ecommerce-store/this-page");
   };
 
   const handleNavNotFoundQuery = () => {
@@ -158,15 +166,6 @@ const Home = (props) => {
             </div>
 
             <div className={styles.buttons}>
-              <button
-                className={`${styles.cta} ${styles.browseBtn}`}
-                onClick={handleBrowse}
-                aria-label="Browse"
-              >
-                <Enter className={styles.ctaSVG} />
-                Browse
-              </button>
-
               <a
                 href="https://github.com/Xerox563/GameBazaar/tree/master"
                 target="_blank"
@@ -188,6 +187,14 @@ const Home = (props) => {
                   <span>LinkedIn</span>
                 </button>
               </a>
+              <button
+                className={`${styles.cta} ${styles.browseBtn}`}
+                onClick={handleBrowse}
+                aria-label="Browse"
+              >
+                <Enter className={styles.ctaSVG} />
+                Browse
+              </button>
             </div>
           </div>
 
