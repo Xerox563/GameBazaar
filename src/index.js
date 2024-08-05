@@ -10,18 +10,20 @@ import "./Resources/fonts/walsheim/GTWalsheimPro-Bold.ttf";
 import Footer from "./Components/Footer/Footer";
 import { BrowserRouter } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
+import Scroll from "./Components/After/Scroll";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
     domain="dev-ox710sb7vz2anbkm.us.auth0.com"
-    clientId="bAa1Tnpw1pJ8zTGYDrj7S1XIY5aCKsxa"
+    clientId="IjSZF0svyHLT45KHblfAS6iO8wABPnKza"
     authorizationParams={{
-      redirect_uri: "http://localhost:3000/react-ecommerce-store", // Ensure this matches the allowed callback URL in Auth0
+      redirect_uri: "https://game-bazaar-by-amit.vercel.app/", // Ensure this matches the allowed callback URL in Auth0
     }}
   >
     <BrowserRouter>
       <App />
+      <Scroll />
     </BrowserRouter>
   </Auth0Provider>
 );

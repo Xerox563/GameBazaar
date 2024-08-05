@@ -4,19 +4,13 @@ import NavBar from "../../Components/NavBar/NavBar";
 import { ReactComponent as GitHubLogo } from "../../Resources/image/githublogo.svg";
 import { ReactComponent as Enter } from "../../Resources/image/enter.svg";
 import { ReactComponent as LinkedIn } from "../../Resources/image/linkedin.svg";
-import { ReactComponent as Game } from "../../Resources/image/game.svg";
-import { ReactComponent as NotFound } from "../../Resources/image/notfound.svg";
-import { ReactComponent as NotFoundQuery } from "../../Resources/image/notfoundquery.svg";
-import { ReactComponent as Git } from "../../Resources/image/git.svg";
-import { ReactComponent as Performance } from "../../Resources/image/performance.svg";
-import { ReactComponent as Sources } from "../../Resources/image/sources.svg";
-import { motion, AnimatePresence, m } from "framer-motion";
+import { motion } from "framer-motion";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Cart from "../../Components/Cart/Cart";
-import AnimatedScroll from "../AnimatedPage/AnimatedScroll";
 import games from "../../utils/games";
 import Typewriter from "../../Components/Typewriter/Typewriter";
 import { useAuth0 } from "@auth0/auth0-react";
+import Scroll from "../../Components/After/Scroll";
 
 const Home = (props) => {
   const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
@@ -67,11 +61,6 @@ const Home = (props) => {
     navigate("/");
   };
 
-  /* for(int i=0;i<n;i++ ) {
-  if(arr[i] % 3 == 0 {
-  for(itn j=0;j<k;j++) {
-   cout<<}})} */
-
   const handleNavGamePage = () => {
     setHoverState([...hoverState, (hoverState[21].hovered = false)]);
     navigate("/react-ecommerce-store/games/riseofthetombraider");
@@ -107,133 +96,104 @@ const Home = (props) => {
   };
 
   return (
-    <div className={styles.main}>
-      {overlap ? (
-        <motion.div
-          className={styles.overlap}
-          variants={buttonVariants}
-          initial="hidden"
-          animate="visible"
-        ></motion.div>
-      ) : null}
+    <>
+      <div className={styles.main}>
+        {overlap ? (
+          <motion.div
+            className={styles.overlap}
+            variants={buttonVariants}
+            initial="hidden"
+            animate="visible"
+          ></motion.div>
+        ) : null}
 
-      {cartDisplayed ? (
-        <Cart
-          cartDisplayed={cartDisplayed}
-          handleOpenCart={handleOpenCart}
-          handleCloseCart={handleCloseCart}
-          cart={cart}
-          cartAmount={cartAmount}
-          handleHover={handleHover}
-          hoverState={hoverState}
-          clearCart={clearCart}
-          handleRemoveFromCart={handleRemoveFromCart}
-          openGamePage={openGamePage}
-        />
-      ) : null}
-      <div className={styles.home}>
-        <video autoPlay loop controls preload="auto" className={styles.video}>
-          <source
-            src={require("../../Resources/image/latest_gta.mp4")}
-            type="video/mp4"
+        {cartDisplayed ? (
+          <Cart
+            cartDisplayed={cartDisplayed}
+            handleOpenCart={handleOpenCart}
+            handleCloseCart={handleCloseCart}
+            cart={cart}
+            cartAmount={cartAmount}
+            handleHover={handleHover}
+            hoverState={hoverState}
+            clearCart={clearCart}
+            handleRemoveFromCart={handleRemoveFromCart}
+            openGamePage={openGamePage}
           />
-        </video>
+        ) : null}
 
-        <NavBar
-          handleHover={handleHover}
-          hoverState={hoverState}
-          browsing={browsing}
-          handleBrowse={handleBrowse}
-          handleHome={handleHome}
-          landingPage={landingPage}
-          cartAmount={cartAmount}
-          handleOpenCart={handleOpenCart}
-          handleCloseCart={handleCloseCart}
-        />
-        <div className={styles.container}>
-          <div className={styles.left}>
-            <div className={styles.splash}>
-              <div className={styles.type}>
-                <Typewriter />
+        <div className={styles.home}>
+          <video autoPlay loop controls preload="auto" className={styles.video}>
+            <source
+              src={require("../../Resources/image/latest_gta.mp4")}
+              type="video/mp4"
+            />
+          </video>
+
+          <NavBar
+            handleHover={handleHover}
+            hoverState={hoverState}
+            browsing={browsing}
+            handleBrowse={handleBrowse}
+            handleHome={handleHome}
+            landingPage={landingPage}
+            cartAmount={cartAmount}
+            handleOpenCart={handleOpenCart}
+            handleCloseCart={handleCloseCart}
+          />
+          <div className={styles.container}>
+            <div className={styles.left}>
+              <div className={styles.splash}>
+                <div className={styles.type}>
+                  <Typewriter />
+                </div>
+
+                <p className={styles.intro}>
+                  Welcome to Game Bazaar! 🌟🎮 Discover a dynamic platform for
+                  buying, selling, and trading your favorite games. Explore a
+                  vast library 📚 across all platforms and shop securely with
+                  our trusted payment system 🔒.
+                </p>
               </div>
 
-              <p className={styles.intro}>
-                Welcome to Game Bazaar! 🌟🎮 Discover a dynamic platform for
-                buying, selling, and trading your favorite games. Explore a vast
-                library 📚 across all platforms and shop securely with our
-                trusted payment system 🔒.
-              </p>
-            </div>
-
-            <div className={styles.buttons}>
-              <a
-                href="https://github.com/Xerox563/GameBazaar/tree/master"
-                target="_blank"
-              >
-                <button className={styles.cta} aria-label="View Repository">
-                  <GitHubLogo className={styles.ctaSVG} />
-                  GitHub
-                </button>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/amit-gangwar-a63174250/"
-                target="_blank"
-              >
-                <button
-                  className={`${styles.cta} ${styles.lastChild}`}
-                  aria-label="Open LinkedIn"
+              <div className={styles.buttons}>
+                <a
+                  href="https://github.com/Xerox563/GameBazaar/tree/master"
+                  target="_blank"
                 >
-                  <LinkedIn className={`${styles.ctaSVG} ${styles.linkedin}`} />
-                  <span>LinkedIn</span>
+                  <button className={styles.cta} aria-label="View Repository">
+                    <GitHubLogo className={styles.ctaSVG} />
+                    GitHub
+                  </button>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/amit-gangwar-a63174250/"
+                  target="_blank"
+                >
+                  <button
+                    className={`${styles.cta} ${styles.lastChild}`}
+                    aria-label="Open LinkedIn"
+                  >
+                    <LinkedIn
+                      className={`${styles.ctaSVG} ${styles.linkedin}`}
+                    />
+                    <span>LinkedIn</span>
+                  </button>
+                </a>
+                <button
+                  className={`${styles.cta} ${styles.browseBtn}`}
+                  onClick={handleBrowse}
+                  aria-label="Browse"
+                >
+                  <Enter className={styles.ctaSVG} />
+                  Browse
                 </button>
-              </a>
-              <button
-                className={`${styles.cta} ${styles.browseBtn}`}
-                onClick={handleBrowse}
-                aria-label="Browse"
-              >
-                <Enter className={styles.ctaSVG} />
-                Browse
-              </button>
+              </div>
             </div>
           </div>
-
-          {/* <div className={styles.right}>
-                        <div className={styles.buttonsRight}>
-                            <h2>Quick Navigation</h2>
-                            <button className={styles.cta} onClick={handleNavGamePage} aria-label="Open a game page">
-                              <Game className={styles.ctaSVG} />
-                              Game Page
-                            </button>
-                            <button className={styles.cta} onClick={handleNavNotFoundPage} aria-label="Open 404 page">
-                              <NotFound className={styles.ctaSVG} />
-                              404 Page
-                            </button>
-                            <button className={`${styles.cta} ${styles.lastChild}`} onClick={handleNavNotFoundQuery} aria-label="open 404 query page">
-                              <NotFoundQuery className={`${styles.ctaSVG}`} />
-                              404 Query
-                            </button>
-                            <a href='https://github.com/gianlucajahn/react-ecommerce-store/commits/main' target="_blank"><button className={styles.cta} aria-label="Open commit log">
-                              <Git className={styles.ctaSVG} />
-                              Commit Log
-                            </button></a>
-                            <a href="https://github.com/gianlucajahn/react-ecommerce-store/blob/main/README.md#performance" target="_blank"><button className={`${styles.cta} ${styles.lastChild}`} aria-label="Open performance test results">
-                              <Performance className={`${styles.ctaSVG}`} />
-                              Performance
-                            </button></a>
-                            <a href="https://github.com/gianlucajahn/react-ecommerce-store/blob/main/README.md#technologies-used" target="_blank"><button className={`${styles.cta} ${styles.lastChild}`} aria-label="View technologies used"> 
-                              <img className={styles.technologies} src={require("../../Resources/image/whatruns.png")} alt="WhatRuns logo"/>
-                              Technologies
-                            </button></a>
-                            <a href="https://github.com/gianlucajahn/react-ecommerce-store/blob/main/README.md#sources" target="_blank"><button className={`${styles.cta} ${styles.lastChild}`} aria-label="View Sources">
-                              <Sources className={`${styles.ctaSVG}`} />
-                              Our Sources
-                            </button></a>
-                        </div>
-                    </div> */}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

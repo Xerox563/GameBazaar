@@ -16,6 +16,7 @@ import { AnimatePresence } from "framer-motion";
 import filterNames from "./utils/filterNames";
 import games from "./utils/games";
 import templateGame from "./utils/templateGame";
+import Scroll from "./Components/After/Scroll";
 
 function App() {
   const [currentFilter, setCurrentFilter] = useState("none");
