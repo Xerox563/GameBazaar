@@ -16,6 +16,7 @@ import AddedToCartBig from "../../Components/AddedToCart/AddedToCartBig";
 import Cart from "../../Components/Cart/Cart";
 import templateGame from "../../utils/templateGame";
 import Footer from "../../Components/Footer/Footer";
+import Scroll from "../../Components/After/Scroll";
 
 const GamePage = (props) => {
   const {
@@ -315,7 +316,7 @@ const GamePage = (props) => {
                   )}
                 </div>
 
-                <div className={styles.centerContainer}>
+                {/* <div className={styles.centerContainer}>
                   <div className={styles.tribute}>
                     <h1 className={styles.title}>Game of the Year</h1>
                     <h2 className={styles.subtitle}>Red Dead Redemption 2</h2>
@@ -332,12 +333,13 @@ const GamePage = (props) => {
                       />
                     </video>
                   </div>
-                </div>
+                </div> */}
               </div>
             </section>
+            <Scroll />
+            <Footer />
           </div>
         </AnimatedGamePage>
-        <Footer />
       </div>
     </>
   );

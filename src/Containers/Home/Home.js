@@ -9,12 +9,9 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Cart from "../../Components/Cart/Cart";
 import games from "../../utils/games";
 import Typewriter from "../../Components/Typewriter/Typewriter";
-import { useAuth0 } from "@auth0/auth0-react";
 import Scroll from "../../Components/After/Scroll";
 
 const Home = (props) => {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
-
   const {
     shownGames,
     cartAmount,
@@ -45,15 +42,11 @@ const Home = (props) => {
   };
 
   const handleBrowse = () => {
-    if (!isAuthenticated) {
-      loginWithRedirect();
-    } else {
-      setOverlap(true);
-      setTimeout(() => {
-        setBrowsing(true);
-        navigate("/react-ecommerce-store/browse");
-      }, 1500);
-    }
+    setOverlap(true);
+    setTimeout(() => {
+      setBrowsing(true);
+      navigate("/react-ecommerce-store/browse");
+    }, 1500);
   };
 
   const handleHome = () => {
